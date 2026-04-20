@@ -9,6 +9,8 @@ public class homecontroller {
 
     @GetMapping("/")
     public String home() {
+
         return "Welcome to Home Page";
+        
     }
 }

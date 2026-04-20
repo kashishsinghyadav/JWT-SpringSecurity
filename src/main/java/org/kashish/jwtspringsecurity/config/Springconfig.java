@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -21,7 +22,7 @@ public class Springconfig {
     //4. enabling for post man or rest client
     //5. mark session as stateless
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity){
-        httpSecurity.csrf(customizer -> customizer.disable()).authorizeHttpRequests(request -> request.anyRequest().authenticated())
+        httpSecurity.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(request -> request.anyRequest().authenticated())
         .formLogin(Customizer.withDefaults())
         .httpBasic((Customizer.withDefaults())).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
