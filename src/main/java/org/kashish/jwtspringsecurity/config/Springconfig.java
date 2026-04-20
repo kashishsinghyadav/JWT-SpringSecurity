@@ -7,6 +7,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -25,7 +29,17 @@ public class Springconfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(request -> request.anyRequest().authenticated())
         .formLogin(Customizer.withDefaults())
         .httpBasic((Customizer.withDefaults())).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
         return httpSecurity.build(); // return the object of secuirty filer chain
     }
+
+    @Bean
+    // userdetail serivec is interface
+    public UserDetailsService userDetailsService(){
+        // userdetails also interface
+        UserDetails user1 = User.withDefaultPasswordEncoder().username("kashish").password("<PASSWORD>").roles("USER").build();
+
+        UserDetails user2 = User.withDefaultPasswordEncoder().username("admin").password("<PASSWORD>").roles("ADMIN").build();
+        return  new InMemoryUserDetailsManager(user1,user2);
+    }
+
 }
