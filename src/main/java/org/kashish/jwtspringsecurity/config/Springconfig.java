@@ -51,12 +51,13 @@ public class Springconfig {
 //    }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(){
-        // this is class extend AuthenticationProvider
+    public AuthenticationProvider authenticationProvider() {
+
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+
         provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+
         return provider;
     }
-
 }
