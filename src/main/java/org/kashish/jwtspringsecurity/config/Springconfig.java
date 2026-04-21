@@ -1,10 +1,8 @@
 package org.kashish.jwtspringsecurity.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.proxy.NoOp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -25,7 +23,6 @@ public class Springconfig {
 
     @Autowired
     private UserDetailsService userDetailsService;
-
     @Bean
     // configuration of enabling suctomize filer chain
     //1.disable csrf token
@@ -33,7 +30,7 @@ public class Springconfig {
     //3. enable form login so the form is visible to acess page
     //4. enabling for post man or rest client
     //5. mark session as stateless
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity){
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(request -> request.anyRequest().authenticated())
         .formLogin(Customizer.withDefaults())
         .httpBasic((Customizer.withDefaults())).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -60,4 +57,5 @@ public class Springconfig {
 
         return provider;
     }
+
 }
