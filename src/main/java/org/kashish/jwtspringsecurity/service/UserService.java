@@ -33,7 +33,7 @@ public class UserService {
         Authentication authentication =  authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()) );
 
         if(authentication.isAuthenticated()){
-            return jwtService.genrateToken();
+            return jwtService.genrateToken(user.getUsername());
         }
         else{
             return "Invalid Credentials";
