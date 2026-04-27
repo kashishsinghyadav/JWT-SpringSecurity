@@ -35,7 +35,9 @@ public class Springconfig {
     //4. enabling for post man or rest client
     //5. mark session as stateless
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(request -> request.anyRequest().authenticated())
+        httpSecurity.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(request -> request
+                        .requestMatchers("register","login").permitAll()
+                        .anyRequest().authenticated())
         .formLogin(Customizer.withDefaults())
         .httpBasic((Customizer.withDefaults())).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return httpSecurity.build(); // return the object of secuirty filer chain
