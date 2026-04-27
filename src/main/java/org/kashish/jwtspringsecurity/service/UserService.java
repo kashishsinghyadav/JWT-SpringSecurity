@@ -17,6 +17,10 @@ public class UserService {
     private UserRepo userRepo;
 
     @Autowired
+    private  JwtService jwtService;
+
+
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -25,14 +29,14 @@ public class UserService {
         return userRepo.save(user);
     }
 
-    public void verify(Users user) {
+    public String verify(Users user) {
         Authentication authentication =  authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()) );
 
         if(authentication.isAuthenticated()){
-            System.out.println("Login Successfull");
+            return jwtService.genrateToken();
         }
         else{
-            System.out.println("Login Failed");
+            return "Invalid Credentials";
         }
 
 
