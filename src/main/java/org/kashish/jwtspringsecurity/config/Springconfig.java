@@ -38,7 +38,6 @@ public class Springconfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(request -> request
                         .requestMatchers("register","login").permitAll()
                         .anyRequest().authenticated())
-        .formLogin(Customizer.withDefaults())
         .httpBasic((Customizer.withDefaults())).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return httpSecurity.build(); // return the object of secuirty filer chain
     }
