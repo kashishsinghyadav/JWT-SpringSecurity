@@ -42,10 +42,10 @@ public class JwtService {
         Map<String, Object> claims = new HashMap<>();
 
         return Jwts.builder()
-                .claims(claims)
-                .subject(username)
-                .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis()
+                .setClaims(claims)
+                .setSubject(username)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis()
                         + 1000 * 60 * 60 * 30))
                 .signWith(getKey())
                 .compact();
